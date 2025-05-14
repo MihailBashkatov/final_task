@@ -55,7 +55,10 @@ services:
       - celery
 
   nginx:
-    image: miahilus/nginx_final_task:latest
+    build:
+      context: ./nginx
+    image: nginx_final_task
+    container_name: final_task_nginx
     ports:
       - "80:80"
     volumes:
