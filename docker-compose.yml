@@ -57,7 +57,7 @@ services:
   nginx:
     build:
       context: ./nginx
-    image: nginx_final_task
+    image: final_task_nginx
     container_name: final_task_nginx
     ports:
       - "80:80"
