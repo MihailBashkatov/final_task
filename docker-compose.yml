@@ -1,58 +1,21 @@
+version: '3.9'
+
 services:
   web:
     restart: always
-    image: miahilus/online_course_project:latest
-    container_name: final_task
-    command: bash -c "python manage.py collectstatic --noinput && python manage.py migrate && python manage.py add_database && python manage.py createadmin && gunicorn config.wsgi:application --bind 0.0.0.0:8000"
+    image: miahilus/final_task:latest
+    container_name: course_8
+    command: bash -c "python manage.py collectstatic --noinput && python manage.py migrate && gunicorn config.wsgi:application --bind 0.0.0.0:8000"
 
     env_file:
-      - .env
+      - ./.env
     volumes:
-      - .:/app
-      - static_volume:/app/static
+      - static_volume:/app/staticfiles
     expose:
       - "8000"
     depends_on:
           db:
             condition: service_healthy
-
-  db:
-    image: postgres:17-alpine
-    restart: always
-    container_name: psgr
-    env_file:
-      - .env
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 30s
-      timeout: 10s
-      retries: 5
-
-
-  redis:
-    image: redis
-    ports:
-      - "6379:6379"
-    depends_on:
-      - web
-
-  celery:
-    build: .
-    command: bash -c "celery -A config worker -l INFO"
-    env_file:
-      - .env
-    depends_on:
-      - redis
-
-  celery_beat:
-    build: .
-    command: bash -c "celery -A config beat -l INFO -S django"
-    env_file:
-      - .env
-    depends_on:
-      - celery
 
   nginx:
     image: miahilus/final_task_nginx:latest
@@ -62,6 +25,27 @@ services:
       - static_volume:/app/staticfiles
     depends_on:
       - web
+
+  db:
+    image: postgres:16
+    restart: always
+    container_name: psgr
+    env_file:
+      - ./.env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+    env_file:
+      - ./.env
 
 volumes:
   postgres_data:
