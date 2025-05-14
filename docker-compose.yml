@@ -2,8 +2,7 @@ version: '3.9'
 
 services:
   web:
-    build: .
-    image: final_task
+    image: miahilus/final_task
     container_name: final_task
     command: bash -c "python manage.py collectstatic --noinput && python manage.py migrate && python manage.py add_database && python manage.py createadmin  && gunicorn config.wsgi:application --bind 0.0.0.0:8000"
 
@@ -17,14 +16,14 @@ services:
           db:
             condition: service_healthy
 
-#  nginx:
-#    image: miahilus/final_task_nginx:latest
-#    ports:
-#      - "80:80"
-#    volumes:
-#      - static_volume:/app/staticfiles
-#    depends_on:
-#      - web
+  nginx:
+    image: miahilus/final_task_nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - static_volume:/app/staticfiles
+    depends_on:
+      - web
 
   db:
     image: postgres:16
@@ -48,8 +47,7 @@ services:
       - ./.env
 
   celery:
-    build: ./
-    image: final_task_celery
+    image: miahilus/final_task_celery
     container_name: final_task_celery
     command: bash -c "celery -A config worker -l INFO"
     depends_on:
