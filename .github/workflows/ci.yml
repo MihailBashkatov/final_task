@@ -103,8 +103,8 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/final_task:${{ github.sha }} .
-          docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/final_task_nginx:${{ github.sha }} nginx/.
+          docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/final_task.
+          docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/final_task_nginx nginx/.
 
       - name: Push Docker image to Docker Hub
         run: |
