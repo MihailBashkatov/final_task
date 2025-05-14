@@ -1,8 +1,7 @@
 services:
   web:
     restart: always
-    build: .
-    image: final_task
+    image: miahilus/online_course_project:latest
     container_name: final_task
     command: bash -c "python manage.py collectstatic --noinput && python manage.py migrate && python manage.py add_database && python manage.py createadmin && gunicorn config.wsgi:application --bind 0.0.0.0:8000"
 
@@ -56,8 +55,7 @@ services:
       - celery
 
   nginx:
-    build:
-      context: ./nginx
+    image: miahilus/nginx_final_task:latest
     ports:
       - "80:80"
     volumes:
