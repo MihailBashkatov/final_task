@@ -25,4 +25,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy app files
 ADD ../ .
 
-CMD ["celery", "-A", "config", "worker", "-l", "INFO"]
+#CMD ["celery", "-A", "config", "beat", "-l", "INFO", "-S", "djangp"]
+CMD ["celery", "-A", "config", "worker", "--beat", "--scheduler" ,"-l", "INFO"]
+
+#celery -A my_project beat —loglevel=info
+#celery -A config worker --beat --scheduler django --loglevel=info
