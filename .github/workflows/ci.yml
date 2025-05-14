@@ -105,11 +105,13 @@ jobs:
         run: |
           docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/final_task .
           docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/final_task_nginx nginx/.
+          docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/final_task_celery docker_celery/.
 
       - name: Push Docker image to Docker Hub
         run: |
           docker push ${{ secrets.DOCKER_HUB_USERNAME }}/final_task
           docker push ${{ secrets.DOCKER_HUB_USERNAME }}/final_task_nginx
+          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/final_task_celery
 
 
   copy_files_in_server:

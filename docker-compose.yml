@@ -47,6 +47,12 @@ services:
     env_file:
       - ./.env
 
+  celery:
+    image: miahilus/final_task_celery:latest
+    command: bash -c "celery -A config worker -l INFO"
+    depends_on:
+      - redis
+
 volumes:
   postgres_data:
   static_volume:
