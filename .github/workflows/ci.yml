@@ -101,15 +101,15 @@ jobs:
       - name: Log in to Docker Hub
         run: echo ${{ secrets.ACCESS_TOKEN_FINAL_TASK }} | docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
 
-#      - name: Build Docker image
-#        run: |
-#          docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/online_course_project:${{ github.sha }} .
-#          docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/nginx:${{ github.sha }} nginx/.
-#
-#      - name: Push Docker image to Docker Hub
-#        run: |
-#          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/online_course_project:${{ github.sha }}
-#          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/nginx:${{ github.sha }}
+      - name: Build Docker image
+        run: |
+          docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/final_task:${{ github.sha }} .
+          docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/nginx:${{ github.sha }} nginx/.
+
+      - name: Push Docker image to Docker Hub
+        run: |
+          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/final_task:${{ github.sha }}
+          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/nginx:${{ github.sha }}
 #
 #
 #  copy_files_in_server:
