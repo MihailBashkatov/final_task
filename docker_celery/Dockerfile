@@ -17,12 +17,12 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy Requirements.txt
-COPY ../requirements.txt .
+COPY requirements.txt .
 
 # Setup requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy app files
-COPY ../ .
+COPY . .
 
 CMD ["celery", "-A", "config", "worker", "-l", "INFO"]
