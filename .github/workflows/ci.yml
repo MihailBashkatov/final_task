@@ -108,8 +108,8 @@ jobs:
 
       - name: Push Docker image to Docker Hub
         run: |
-          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/final_task:${{ github.sha }}
-          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/final_task_nginx:${{ github.sha }}
+          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/final_task
+          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/final_task_nginx
 
 
   copy_files_in_server:
