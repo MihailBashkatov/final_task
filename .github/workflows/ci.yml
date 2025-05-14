@@ -113,7 +113,7 @@ jobs:
           docker push ${{ secrets.DOCKER_HUB_USERNAME }}/final_task
           docker push ${{ secrets.DOCKER_HUB_USERNAME }}/final_task_nginx
           docker push ${{ secrets.DOCKER_HUB_USERNAME }}/final_task_celery
-          docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/final_task_celery_beat
+          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/final_task_celery_beat
 
 
   copy_files_in_server:
