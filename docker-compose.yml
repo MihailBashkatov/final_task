@@ -55,8 +55,6 @@ services:
       - celery
 
   nginx:
-    build:
-      context: ./nginx
     image: final_task_nginx
     container_name: final_task_nginx
     ports:
