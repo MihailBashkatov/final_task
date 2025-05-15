@@ -11,7 +11,7 @@ To be able to start app uou need:
             mkdir <directory_name>
 
 1) Copy docker-compose.yml (branch celery) to your directory
-2) Set there file .env 
+2) Set there file .env (or copy .env_sample)
 
             touch .env
 3) Open .env for adding variables
