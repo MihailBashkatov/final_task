@@ -71,4 +71,3 @@ def send_reminder_and_set_next_date():
         if local_current_date_time >= local_habit_date:
             habit.habit_date = local_habit_date + timedelta(days=habit.habit_period)
             habit.save()
-
