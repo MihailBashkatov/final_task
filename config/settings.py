@@ -171,7 +171,7 @@ CELERY_BROKER_URL = os.getenv("CELERY_BROKER_URL")
 # set the celery result backend
 CELERY_RESULT_BACKEND = os.getenv("CELERY_RESULT_BACKEND")
 
-# Celery Beat settings
+# Celery Beat setting
 CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
 
 
