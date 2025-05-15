@@ -19,7 +19,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True if os.getenv("DEBUG") == "True" else False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -78,11 +78,11 @@ WSGI_APPLICATION = "config.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",  # registering database postgres
-        "NAME": os.getenv("NAME"),
-        "USER": os.getenv("USER"),
-        "PASSWORD": os.getenv("PASSWORD"),
-        "HOST": os.getenv("HOST"),
-        "PORT": os.getenv("PORT"),
+        "NAME": os.getenv("POSTGRES_DB"),
+        "USER": os.getenv("POSTGRES_USER"),
+        "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
+        "HOST": os.getenv("POSTGRES_HOST"),
+        "PORT": os.getenv("POSTGRES_PORT"),
     }
 }
 
@@ -118,10 +118,16 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
+# Static files (CSS, JavaScript, Imaes)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = "static/"
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -165,7 +171,7 @@ CELERY_BROKER_URL = os.getenv("CELERY_BROKER_URL")
 # set the celery result backend
 CELERY_RESULT_BACKEND = os.getenv("CELERY_RESULT_BACKEND")
 
-# Celery Beat settings
+# Celery Beat setting
 CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
 
 
