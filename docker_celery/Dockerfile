@@ -24,5 +24,3 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy app files
 ADD ../ .
-
-CMD ["celery", "-A", "config", "worker", "-l", "INFO"]

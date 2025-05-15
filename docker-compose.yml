@@ -45,6 +45,8 @@ services:
       - "6379:6379"
     env_file:
       - ./.env
+    depends_on:
+      - web
 
   celery:
     image: miahilus/final_task_celery
@@ -59,7 +61,6 @@ services:
   celery_beat:
     image: miahilus/final_task_celery_beat
     container_name: final_task_celery_beat
-#    command: bash -c "celery -A config beat -l INFO -S django"
     command: bash -c "celery -A config worker --beat --scheduler django --loglevel=info"
     ports:
       - "5432:5432"
@@ -68,7 +69,7 @@ services:
 
     depends_on:
       - redis
-      - db
+
 
 volumes:
   postgres_data:
