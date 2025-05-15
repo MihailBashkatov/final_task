@@ -2,12 +2,9 @@
 
 ### Project is aimed to build SPA backend part and be available on the external server
 
-There are two options to use project materials
+To be able to start app uou need:
 
-1. Run as ready solution
-2. Adapt solution for your needs
 
-1. Run as ready solution. 
 
    1) Create a directory 
 
@@ -17,16 +14,11 @@ There are two options to use project materials
 2) Set there file .env 
 
             touch .env
+3) Open .env for adding variables
 
-3) Insert next variables
+       nano .env
 
-            nano .env
-
-Generate SECRET_KEY
-
-     tr -dc 'A-Za-z0-9!#$%&\()*+,-./:;<=>?@[\]^_{|}~' </dev/urandom | head -c 50  ; echo
-
-Generate BOT_TOKEN follow instructions here https://t.me/BotFather
+5) Insert next variables
 
 SECRET_KEY=     
 DEBUG=True  
@@ -42,11 +34,19 @@ BOT_TOKEN=
 CELERY_BROKER_URL=redis://redis:6379/0
 CELERY_RESULT_BACKEND=redis://redis:6379/0
 
-4) Insert command in the terminal
+To generate Generate SECRET_KEY
+
+    tr -dc 'A-Za-z0-9!#$%&\()*+,-./:;<=>?@[\]^_{|}~' </dev/urandom | head -c 50  ; echo
+
+To generate BOT_TOKEN follow instructions here https://t.me/BotFather
+
+6) Insert command in the terminal
 
        docker compose up --build
 
-6) If container final_task_celery_beat does not get connection to the postgres (log error ), stop the container and and start it again
+6) If container final_task_celery_beat does not get connection to the postgres (log error "connection to server at "db" (172.18.0.3), port 5432 failed: Connection refused
+        Is the server running on that host and accepting TCP/IP connections?
+"), stop the container  start it again
 
        docker stop final_task_celery_beat
 
@@ -55,20 +55,25 @@ CELERY_RESULT_BACKEND=redis://redis:6379/0
 5) App is available
 http://84.201.144.206/habits/
 
-5) To stop the programme
+
+9) To stop the programme
 
             docker stop $(docker ps -aq)
 
-6) To remove all container
+5) To start the programme again
+
+            docker start $(docker ps -aq)
+
+6) To remove all containers
 
             docker compose down
 
-If you want to recieve reminder via Telegram
+#### If you want to receive reminder via Telegram
 
-#### Add your user profile
+#### Add your user profile http://84.201.144.206/user/create/
 
-##### 2) Find out you Telegram ID (e.g via @userinfobot)
-##### 3) Add field telegram_chat_id (Telegram ID) when you creating your profile 
+1) Find out you Telegram ID (e.g via @userinfobot)
+2) Add field telegram_chat_id (Telegram ID) when you creating your profile 
 
 
 #### Add habit. For that next fields are compulsory:
@@ -82,7 +87,6 @@ If you want to recieve reminder via Telegram
 habit_date" (format YYYY-MM-DD hh:mm)
 
 "habit_time_duration" (reflected in seconds, max is 120 seconds)
-
 
 #### Project documentation is placed 
 
