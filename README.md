@@ -1,40 +1,79 @@
-# Project Tracker for Good Habits
+# Project Tracker for Good Habits on remote server
 
-### Project is aimed to build SPA backend part
+### Project is aimed to build SPA backend part and be available on the external server
 
-### To be able to start a project:
+To be able to start app uou need:
 
-#### 1) Clone the repo to your machine
-#### 2) Set up virtual environment
-#### 3) Install requirements from requirements.txt, if use venv
-#### 4) Create database Postgres
-#### 5) Install redis
-#### 6) Create .env file and add there all values from .env_sample
-Genertate SECRET_KEY
+
+
+   1) Create a directory 
+
+            mkdir <directory_name>
+
+1) Copy docker-compose.yml (branch celery) to your directory
+2) Set there file .env (or copy .env_sample)
+
+            touch .env
+3) Open .env for adding variables
+
+       nano .env
+
+5) Insert next variables
+
+SECRET_KEY=     
+DEBUG=True  
+
+POSTGRES_DB=test_final_task  
+POSTGRES_USER=postgres  
+POSTGRES_PASSWORD=postgres  
+POSTGRES_HOST=db  
+POSTGRES_PORT=5432  
+
+BOT_TOKEN=
+
+CELERY_BROKER_URL=redis://redis:6379/0
+CELERY_RESULT_BACKEND=redis://redis:6379/0
+
+To generate Generate SECRET_KEY
 
     tr -dc 'A-Za-z0-9!#$%&\()*+,-./:;<=>?@[\]^_{|}~' </dev/urandom | head -c 50  ; echo
-#### 7) Create Telegram Bot https://t.me/BotFather
+
+To generate BOT_TOKEN follow instructions here https://t.me/BotFather
+
+6) Insert command in the terminal
+
+       docker compose up --build
+
+6) If container final_task_celery_beat does not get connection to the postgres (log error "connection to server at "db" (172.18.0.3), port 5432 failed: Connection refused
+        Is the server running on that host and accepting TCP/IP connections?
+"), stop the container  start it again
+
+       docker stop final_task_celery_beat
+
+       docker start final_task_celery_beat
+
+5) App is available
+http://84.201.144.206/habits/
 
 
+9) To stop the programme
 
-#### To start a project, make sure you are in the folder, where repo is cloned run a command in terminal
+            docker stop $(docker ps -aq)
 
-    python manage.py runserver
+5) To start the programme again
 
-#### To create Superuser, run a command in terminal
+            docker start $(docker ps -aq)
 
-    python manage.py createadmin
+6) To remove all containers
 
-#### To create prepopulated database, run a command in terminal
+            docker compose down
 
-    python manage.py add_database
+#### If you want to receive reminder via Telegram
 
-#### Add your user profile
+#### Add your user profile http://84.201.144.206/user/create/
 
-##### To be able to get a message via Telegram:
-##### 1) create a Telagram Bot (step 5 and do not forget to add Token in .env file)
-##### 2) Find out you Telegram ID (e.g via @userinfobot)
-##### 3) Add field telegram_chat_id (Telegram ID) when you creating your profile 
+1) Find out you Telegram ID (e.g via @userinfobot)
+2) Add field telegram_chat_id (Telegram ID) when you creating your profile 
 
 
 #### Add habit. For that next fields are compulsory:
@@ -49,11 +88,6 @@ habit_date" (format YYYY-MM-DD hh:mm)
 
 "habit_time_duration" (reflected in seconds, max is 120 seconds)
 
-#### Start celery and celery-beat command in terminal
-
-    celery -A config worker --beat --scheduler django --loglevel=info
-
-
 #### Project documentation is placed 
-http://127.0.0.1:8000/swagger/
 
+http://84.201.144.206/swagger/
